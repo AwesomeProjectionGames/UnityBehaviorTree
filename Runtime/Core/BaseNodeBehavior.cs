@@ -35,9 +35,6 @@ namespace UnityBehaviorTree.Runtime.Core
         public Rect graphPosition = new Rect();
         
         [HideInEditorWindow]
-        public string description;
-        
-        [HideInEditorWindow]
         [NonSerialized]
         public Action<FrameResult> NotifyEditor;
 #endif
