@@ -10,9 +10,10 @@ namespace UnityBehaviorTree.Runtime.Core
     }
     public class BehaviorTreeRunner : MonoBehaviour
     {
-        [HideInInspector] [SerializeReference] private Root root = new Root();
-
         [field:SerializeField] public UpdateType UpdateType { get; set; }
+        public Blackboard Blackboard { get; private set; }
+        
+        [HideInInspector] [SerializeReference] private Root root = new Root();
 
         public Root Root
         {
@@ -23,7 +24,8 @@ namespace UnityBehaviorTree.Runtime.Core
         }
         
         private void Awake() {
-            root.Awake(CreateBlackboard());
+            Blackboard = CreateBlackboard();
+            root.Awake(Blackboard);
             root.Run();
         }
 
