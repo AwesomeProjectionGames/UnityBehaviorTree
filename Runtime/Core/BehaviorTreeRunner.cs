@@ -32,14 +32,19 @@ namespace UnityBehaviorTree.Runtime.Core
             root.Run();
         }
 
+        private void Update()
+        {
+            if (UpdateType == UpdateType.Auto) ManualUpdate();
+        }
+
         /// <summary>
         /// Call this method to update the behavior tree manually.
         /// </summary>
-        public void Update()
+        public void ManualUpdate()
         {
-            if (UpdateType == UpdateType.Auto) root.Update();
+            root.Update();
         }
-        
+
         protected virtual Blackboard CreateBlackboard()
         {
             return new Blackboard(this);
