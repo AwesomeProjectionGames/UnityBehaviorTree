@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityBehaviorTree.Editor.Window
 {
-    [CustomEditor(typeof(BehaviorTreeRunner))]
+    [CustomEditor(typeof(BehaviorTreeRunner), true)]
     public class BehaviorTreeEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
