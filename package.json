@@ -1,0 +1,12 @@
+{
+  "name": "com.awesomeprojection.behaviortree",
+  "displayName": "Behavior Tree for Unity",
+  "description": "Simple, open source behavior tree implementation for Unity with a debug editor",
+  "version": "0.1.0",
+  "unity": "2021.3",
+  "author": {
+    "name": "Eliott Jaquier",
+    "email": "eliott.jaquier@gmail.com",
+    "url": "https://eliott.pro"
+  }
+}

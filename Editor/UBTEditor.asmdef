@@ -1,0 +1,16 @@
+{
+    "name": "UBTEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6bd11501090253e4e861b9037171ead9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
