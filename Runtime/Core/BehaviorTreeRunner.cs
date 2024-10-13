@@ -34,10 +34,7 @@ namespace UnityBehaviorTree.Runtime.Core
         
         protected virtual Blackboard CreateBlackboard()
         {
-            return new Blackboard
-            {
-                Runner = this
-            };
+            return new Blackboard(this);
         }
     }
 }

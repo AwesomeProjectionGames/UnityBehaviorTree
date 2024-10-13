@@ -8,6 +8,11 @@ namespace UnityBehaviorTree.Runtime.Core
     [Serializable]
     public class Blackboard
     {
+        public Blackboard(BehaviorTreeRunner runner)
+        {
+            Runner = runner;
+        }
+        
         /// <summary>
         /// The reference to the behavior tree runner executing this node
         /// </summary>
