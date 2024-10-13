@@ -12,7 +12,7 @@ namespace UnityBehaviorTree.Runtime.Core
     {
         [HideInInspector] [SerializeReference] private Root root = new Root();
 
-        [SerializeField] UpdateType updateType;
+        [field:SerializeField] public UpdateType UpdateType { get; set; }
 
         public Root Root
         {
@@ -27,9 +27,12 @@ namespace UnityBehaviorTree.Runtime.Core
             root.Run();
         }
 
-        private void Update()
+        /// <summary>
+        /// Call this method to update the behavior tree manually.
+        /// </summary>
+        public void Update()
         {
-            if (updateType == UpdateType.Auto) root.Update();
+            if (UpdateType == UpdateType.Auto) root.Update();
         }
         
         protected virtual Blackboard CreateBlackboard()
