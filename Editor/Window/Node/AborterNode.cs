@@ -17,11 +17,11 @@ namespace UnityBehaviorTree.Editor.Window.Node
 
         private BaseBehaviorTreeNode _cache;
 
-        public AborterNode() : base()
+        public AborterNode()
         {
             _conditionPort = CreateChildPort("Condition (abort on fail)");
             _conditionPort.tooltip = "Condition to abort the main child running if it fails";
-            inputContainer.Add(_conditionPort);
+            outputContainer.Add(_conditionPort);
         }
 
         protected override bool OnValidate(Stack<BaseBehaviorTreeNode> stack)
@@ -46,11 +46,7 @@ namespace UnityBehaviorTree.Editor.Window.Node
             (NodeBehavior as Aborter)!.Condition = condition?.ReplaceBehavior();
             stack.Push(condition);
             _cache = condition;
-        }
-
-        protected override void OnClearStyle()
-        {
-            _cache?.ClearStyle();
+            base.OnCommit(stack);
         }
     }
 }

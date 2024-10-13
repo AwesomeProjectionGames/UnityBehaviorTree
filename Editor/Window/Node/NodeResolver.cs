@@ -12,16 +12,16 @@ namespace UnityBehaviorTree.Editor.Window.Node
             if (type == typeof(Root))
             {
                 node = new RootNode();
-            } else if (type.IsSubclassOf(typeof(Composite)))
+            } else if (type.IsClassOrSubclassOf(typeof(Composite)))
             {
                 node = new CompositeNode();
-            } else if (type.IsSubclassOf(typeof(Aborter)))
+            } else if (type.IsClassOrSubclassOf(typeof(Aborter)))
             {
                 node = new AborterNode();
-            } else if (type.IsSubclassOf(typeof(PassThrough)))
+            } else if (type.IsClassOrSubclassOf(typeof(PassThrough)))
             {
                 node = new PassThroughNode();
-            } else if (type.IsSubclassOf(typeof(Conditional)))
+            } else if (type.IsClassOrSubclassOf(typeof(Conditional)))
             {
                 node = new ConditionalNode();
             } else

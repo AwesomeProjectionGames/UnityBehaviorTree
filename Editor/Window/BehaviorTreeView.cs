@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityBehaviorTree.Editor.Window.Menu;
 using UnityBehaviorTree.Editor.Window.Node;
 using UnityBehaviorTree.Editor.Window.Window;
+using UnityBehaviorTree.Runtime.Behaviors;
 using UnityBehaviorTree.Runtime.Core;
 using UnityBehaviorTree.Runtime.Core.Node;
 using UnityEditor;
@@ -141,6 +142,13 @@ namespace UnityBehaviorTree.Editor.Window
                         {
                             stack.Push(new EdgePair(nb.Child, _root?.Child));
                         }
+                        break;
+                    }
+                    case Aborter nb:
+                    {
+                        var aborterNode = node as AborterNode;
+                        stack.Push(new EdgePair(nb.Child, aborterNode?.Child));
+                        stack.Push(new EdgePair(nb.Condition, aborterNode?.Condition));
                         break;
                     }
                     case PassThrough nb:
