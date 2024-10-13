@@ -13,7 +13,10 @@ namespace UnityBehaviorTree.Runtime.Core
         [field:SerializeField] public UpdateType UpdateType { get; set; }
         public Blackboard Blackboard { get; private set; }
         
-        [HideInInspector] [SerializeReference] private Root root = new Root();
+        [Space]
+        [Tooltip("This is shown for debugging purpose. This can be usefull to apply modifications to a prefab.")]
+        [Header("This is shown for debugging purpose. This can be usefull to apply modifications to a prefab.")]
+        [SerializeReference] private Root root = new Root();
 
         public Root Root
         {
