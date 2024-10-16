@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "unity": "2021.3",
   "dependencies": {
-    "com.awesomeprojection.coreutils": "https://github.com/AwesomeProjectionGames/CoreUtils.git"
+    "com.awesomeprojection.coreutils": "git://github.com/AwesomeProjectionGames/CoreUtils.git"
   },
   "author": {
     "name": "Eliott Jaquier",
