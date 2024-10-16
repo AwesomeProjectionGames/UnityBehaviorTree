@@ -21,6 +21,12 @@ namespace UnityBehaviorTree.Runtime.Behaviors
 #endif
         }
         
+        public override void Awake(Blackboard blackboard)
+        {
+            base.Awake(blackboard);
+            Condition?.Awake(blackboard);
+        }
+        
         protected override FrameResult OnUpdate()
         {
             bool isConditionMet = (Condition?.Update() ?? FrameResult.Failure) == FrameResult.Success;
