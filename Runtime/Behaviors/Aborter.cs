@@ -7,11 +7,12 @@ namespace UnityBehaviorTree.Runtime.Behaviors
 {
     /// <summary>
     /// An aborter node that will abort the child node if the condition is not met.
-    /// Run the child node until the condition it fails, then abort it.
+    /// Abort the child node run when the condition succeed.
     /// </summary>
     public class Aborter : PassThrough
     {
         [field: SerializeReference]
+        [Tooltip("Abort the child node run when the condition succeed.")]
         [CanBeNull]
         public BaseNodeBehavior Condition
         {
@@ -30,15 +31,12 @@ namespace UnityBehaviorTree.Runtime.Behaviors
         protected override FrameResult OnUpdate()
         {
             bool isConditionMet = (Condition?.Update() ?? FrameResult.Failure) == FrameResult.Success;
-            if (!isConditionMet)
+            if (isConditionMet)
             {
                 Child?.Abort();
                 return FrameResult.Failure;
             }
-            else
-            {
-                return Child?.Update() ?? FrameResult.Failure;
-            }
+            return Child?.Update() ?? FrameResult.Failure;
         }
     }
 }
