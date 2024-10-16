@@ -137,3 +137,8 @@ Plugins/FMOD/Resources/FMODStudioSettings.asset
 FMOD/.cache/*
 Tools/UniToDo/Editor/Resources/todolistconfig.json
 Tools/UniToDo/Editor/Resources/todolistconfig.json.meta
+
+#GitHub root files
+LICENSE*.meta
+README*.meta
+THIRD*PARTY*NOTICES*.meta
