@@ -4,9 +4,6 @@
   "description": "Simple, open source behavior tree implementation for Unity with a debug editor",
   "version": "0.1.0",
   "unity": "2021.3",
-  "dependencies": {
-    "com.awesomeprojection.coreutils": "ssh://git@github.com:AwesomeProjectionGames/CoreUtils.git"
-  },
   "author": {
     "name": "Eliott Jaquier",
     "email": "eliott.jaquier@gmail.com",

@@ -1,9 +1,7 @@
 {
     "name": "UBTRuntime",
     "rootNamespace": "",
-    "references": [
-        "GUID:1d65efb662429984488187d65ee1f1a8"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

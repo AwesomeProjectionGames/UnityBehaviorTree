@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using AwesomeProjectionCoreUtils.Extensions;
 using UnityBehaviorTree.Runtime.Core;
 using UnityBehaviorTree.Runtime.Core.Node;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace UnityBehaviorTree.Runtime.Behaviors
@@ -19,7 +19,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
         {
             _currentBehaviour = 0;
             Assert.IsTrue(Children.Count > 0);
-            if (RandomizeOrder) Children = Children.Shuffle().ToList();
+            if (RandomizeOrder) Children = Children.OrderBy(x => Random.value).ToList();
             Children[_currentBehaviour].Run();
         }
 
