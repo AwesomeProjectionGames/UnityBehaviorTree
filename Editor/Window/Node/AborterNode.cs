@@ -19,7 +19,7 @@ namespace UnityBehaviorTree.Editor.Window.Node
 
         public AborterNode()
         {
-            _conditionPort = CreateChildPort("Condition (abort on fail)");
+            _conditionPort = CreateChildPort("Condition (abort if succeed)");
             _conditionPort.tooltip = "Condition to abort the main child running if it fails";
             outputContainer.Add(_conditionPort);
         }
