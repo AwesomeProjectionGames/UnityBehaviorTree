@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityBehaviorTree.Runtime.Core.Node;
 using UnityEngine;
 
@@ -10,7 +12,27 @@ namespace UnityBehaviorTree.Runtime.Core
     }
     public class BehaviorTreeRunner : MonoBehaviour
     {
+        /// <summary>
+        /// The list of all runners in the scene. This is used to update all the runners in the scene.
+        /// </summary>
+        public static List<BehaviorTreeRunner> Runners { get; } = new List<BehaviorTreeRunner>();
+        private static bool IsDiviseUpdateTurn(BehaviorTreeRunner runner)
+        {
+            int currentIndex = CurrentRunnerIndex % Runners.Count;
+            BehaviorTreeRunner runnerToExecute = Runners[currentIndex];
+            if (runnerToExecute == runner)
+            {
+                CurrentRunnerIndex++;
+                return true;
+            }
+            return false;
+        }
+        private static int CurrentRunnerIndex { get; set; } = 0;
+        
         [field:SerializeField] public UpdateType UpdateType { get; set; }
+        
+        [Tooltip("If false, all runners are executed in the same frame. If true, the runners are executed in a sequence of frames to avoid lag spikes.")]
+        [field:SerializeField] public bool DiviseUpdateForRunners { get; set; }
         public Blackboard Blackboard { get; private set; }
         
         [Space]
@@ -32,6 +54,16 @@ namespace UnityBehaviorTree.Runtime.Core
             root.Run();
         }
 
+        private void OnEnable()
+        {
+            Runners.Add(this);
+        }
+        
+        private void OnDisable()
+        {
+            Runners.Remove(this);
+        }
+
         private void Update()
         {
             if (UpdateType == UpdateType.Auto) ManualUpdate();
@@ -42,7 +74,7 @@ namespace UnityBehaviorTree.Runtime.Core
         /// </summary>
         public void ManualUpdate()
         {
-            root.Update();
+            if (!DiviseUpdateForRunners || IsDiviseUpdateTurn(this)) root.Update();
         }
 
         protected virtual Blackboard CreateBlackboard()
