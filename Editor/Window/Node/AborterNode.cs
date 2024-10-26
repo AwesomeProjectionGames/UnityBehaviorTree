@@ -6,6 +6,7 @@ using UnityBehaviorTree.Runtime.Behaviors;
 using UnityBehaviorTree.Runtime.Core.Node;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
+using Blackboard = UnityBehaviorTree.Runtime.Core.Blackboard;
 
 namespace UnityBehaviorTree.Editor.Window.Node
 {
@@ -38,12 +39,12 @@ namespace UnityBehaviorTree.Editor.Window.Node
         {
             if (!_conditionPort.connected)
             {
-                (NodeBehavior as Aborter)!.Condition = null;
+                (NodeBehavior as Aborter<Blackboard>)!.Condition = null;
                 _cache = null;
                 return;
             }
             var condition = _conditionPort.connections.First().input.node as BaseBehaviorTreeNode;
-            (NodeBehavior as Aborter)!.Condition = condition?.ReplaceBehavior();
+            (NodeBehavior as Aborter<Blackboard>)!.Condition = condition?.ReplaceBehavior();
             stack.Push(condition);
             _cache = condition;
             base.OnCommit(stack);
