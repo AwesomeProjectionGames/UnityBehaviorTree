@@ -39,4 +39,11 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             return result;
         }
     }
+    
+    /// <summary>
+    /// Execute a list of behaviours in order until one fails
+    /// </summary>
+    public class Sequence : Sequence<Blackboard>
+    {
+    }
 }

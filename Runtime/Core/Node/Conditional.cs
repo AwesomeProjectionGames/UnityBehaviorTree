@@ -16,4 +16,11 @@
         /// <returns>The result of the condition</returns>
         protected abstract bool CheckCondition();
     }
+    
+    /// <summary>
+    /// A simple leaf node that check a condition
+    /// </summary>
+    public abstract class Conditional : Conditional<Blackboard>
+    {
+    }
 }

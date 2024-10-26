@@ -15,4 +15,11 @@ namespace UnityBehaviorTree.Runtime.Core.Node
             return result;
         }
     }
+    
+    /// <summary>
+    /// The root node of the behavior tree
+    /// </summary>
+    public class Root : Root<Blackboard>
+    {
+    }
 }

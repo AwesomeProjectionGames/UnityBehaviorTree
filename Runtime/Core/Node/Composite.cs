@@ -36,4 +36,11 @@ namespace UnityBehaviorTree.Runtime.Core.Node
         }
 #endif
     }
+    
+    /// <summary>
+    /// A composite node that can have multiple children
+    /// </summary>
+    public abstract class Composite : Composite<Blackboard>
+    {
+    }
 }

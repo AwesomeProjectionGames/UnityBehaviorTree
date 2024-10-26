@@ -35,4 +35,11 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             return FrameResult.Running;
         }
     }
+    
+    /// <summary>
+    /// Repeat a behaviour until a condition is met
+    /// </summary>
+    public class Repeat : Repeat<Blackboard>
+    {
+    }
 }

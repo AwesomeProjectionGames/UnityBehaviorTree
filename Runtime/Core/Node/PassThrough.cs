@@ -37,4 +37,11 @@ namespace UnityBehaviorTree.Runtime.Core.Node
             Child?.Abort();
         }
     }
+    
+    /// <summary>
+    /// A base for all node that has a single child
+    /// </summary>
+    public abstract class PassThrough : PassThrough<Blackboard>
+    {
+    }
 }

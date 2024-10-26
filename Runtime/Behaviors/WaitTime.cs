@@ -27,4 +27,11 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             return FrameResult.Running;
         }
     }
+    
+    /// <summary>
+    /// Wait for a given amount of time before returning success
+    /// </summary>
+    public class WaitTime : WaitTime<Blackboard>
+    {
+    }
 }

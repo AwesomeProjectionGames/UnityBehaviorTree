@@ -105,5 +105,14 @@ namespace UnityBehaviorTree.Runtime.Core
         /// </summary>
         protected virtual void OnAbort(){}
     }
+    
+    
+    /// <summary>
+    /// A behaviour node in a behavior tree that can be updated.
+    /// Return the current state of the behaviour. Only running behaviours will continue to be updated.
+    /// </summary>
+    public abstract class BaseNodeBehavior : BaseNodeBehavior<Blackboard>
+    {
+    }
 }
 

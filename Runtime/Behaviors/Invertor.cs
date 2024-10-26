@@ -22,4 +22,11 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             return result;
         }
     }
+    
+    /// <summary>
+    /// Invert the result of a child behaviour
+    /// </summary>
+    public class Invertor : Invertor<Blackboard>
+    {
+    }
 }

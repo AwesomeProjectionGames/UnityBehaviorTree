@@ -39,4 +39,12 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             return Child?.Update() ?? FrameResult.Failure;
         }
     }
+    
+    /// <summary>
+    /// An aborter node that will abort the child node if the condition is not met.
+    /// Abort the child node run when the condition succeed.
+    /// </summary>
+    public class Aborter : Aborter<Blackboard>
+    {
+    }
 }

@@ -39,4 +39,11 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             return result;
         }
     }
+    
+    /// <summary>
+    /// Execute a list of behaviours in order until one succeeds
+    /// </summary>
+    public class Selector : Selector<Blackboard>
+    {
+    }
 }
