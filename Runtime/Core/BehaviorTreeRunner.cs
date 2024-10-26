@@ -38,9 +38,9 @@ namespace UnityBehaviorTree.Runtime.Core
         [Space]
         [Tooltip("This is shown for debugging purpose. This can be usefull to apply modifications to a prefab.")]
         [Header("This is shown for debugging purpose. This can be usefull to apply modifications to a prefab.")]
-        [SerializeReference] private Root root = new Root();
+        [SerializeReference] private Root<Blackboard> root = new Root<Blackboard>();
 
-        public Root Root
+        public Root<Blackboard> Root
         {
             get => root;
 #if UNITY_EDITOR

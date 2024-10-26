@@ -4,6 +4,7 @@ using UnityBehaviorTree.Editor.Window.Node;
 using UnityBehaviorTree.Runtime.Core.Node;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using Blackboard = UnityBehaviorTree.Runtime.Core.Blackboard;
 
 namespace UnityBehaviorTree.Editor.Window.Window
 {
@@ -25,7 +26,7 @@ namespace UnityBehaviorTree.Editor.Window.Window
             {
                 foreach (var type in assembly.GetTypes())
                 {
-                    if (type.IsSubclassOf(typeof(PassThrough)))
+                    if (type.IsSubclassOf(typeof(PassThrough<Blackboard>)))
                     {
                         entries.Add(new SearchTreeEntry(new GUIContent(type.Name)) { level = 1, userData = type });
                     }

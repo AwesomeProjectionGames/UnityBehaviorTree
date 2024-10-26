@@ -9,6 +9,7 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Blackboard = UnityBehaviorTree.Runtime.Core.Blackboard;
 
 namespace UnityBehaviorTree.Editor.Window
 {
@@ -16,10 +17,10 @@ namespace UnityBehaviorTree.Editor.Window
     {
         private readonly struct EdgePair
         {
-            public readonly BaseNodeBehavior NodeBehavior;
+            public readonly BaseNodeBehavior<Blackboard> NodeBehavior;
             public readonly Port ParentOutputPort;
 
-            public EdgePair(BaseNodeBehavior nodeBehavior, Port parentOutputPort)
+            public EdgePair(BaseNodeBehavior<Blackboard> nodeBehavior, Port parentOutputPort)
             {
                 NodeBehavior = nodeBehavior;
                 ParentOutputPort = parentOutputPort;
@@ -120,7 +121,7 @@ namespace UnityBehaviorTree.Editor.Window
                 // seek child
                 switch (edgePair.NodeBehavior)
                 {
-                    case Composite nb:
+                    case Composite<Blackboard> nb:
                     {
                         var compositeNode = node as CompositeNode;
                         var addible = nb.Children.Count - compositeNode.ChildPorts.Count;
@@ -135,26 +136,26 @@ namespace UnityBehaviorTree.Editor.Window
                         }
                         break;
                     }
-                    case Root nb:
+                    case Root<Blackboard> nb:
                     {
                         _root = node as RootNode;
                         if (nb.Child != null)
                         {
-                            stack.Push(new EdgePair(nb.Child, _root?.Child));
+                            stack.Push(new EdgePair(nb.Child as BaseNodeBehavior<Blackboard>, _root?.Child));
                         }
                         break;
                     }
-                    case Aborter nb:
+                    case Aborter<Blackboard> nb:
                     {
                         var aborterNode = node as AborterNode;
-                        stack.Push(new EdgePair(nb.Child, aborterNode?.Child));
+                        stack.Push(new EdgePair(nb.Child as BaseNodeBehavior<Blackboard>, aborterNode?.Child));
                         stack.Push(new EdgePair(nb.Condition, aborterNode?.Condition));
                         break;
                     }
-                    case PassThrough nb:
+                    case PassThrough<Blackboard> nb:
                     {
                         var decoratorNode = node as PassThroughNode;
-                        stack.Push(new EdgePair(nb.Child, decoratorNode?.Child));
+                        stack.Push(new EdgePair(nb.Child as BaseNodeBehavior<Blackboard>, decoratorNode?.Child));
                         break;
                     }
                 }

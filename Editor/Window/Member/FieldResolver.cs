@@ -14,9 +14,9 @@ namespace UnityBehaviorTree.Editor.Window.Member
     {
         VisualElement GetEditorField();
 
-        void Restore(BaseNodeBehavior behavior);
+        void Restore(BaseNodeBehavior<Blackboard> behavior);
 
-        void Commit(BaseNodeBehavior behavior);
+        void Commit(BaseNodeBehavior<Blackboard> behavior);
     }
 
     public abstract class FieldResolver<T, K> :IFieldResolver where T: BaseField<K>
@@ -42,12 +42,12 @@ namespace UnityBehaviorTree.Editor.Window.Member
             return this._editorField;
         }
 
-        public void Restore(BaseNodeBehavior behavior)
+        public void Restore(BaseNodeBehavior<Blackboard> behavior)
         {
             _editorField.value = (K)_fieldInfo.GetValue(behavior);
         }
 
-        public void Commit(BaseNodeBehavior behavior)
+        public void Commit(BaseNodeBehavior<Blackboard> behavior)
         {
            _fieldInfo.SetValue(behavior, _editorField.value);
         }

@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityBehaviorTree.Editor.Window.Menu;
 using UnityBehaviorTree.Editor.Window.Window;
+using UnityBehaviorTree.Runtime.Core;
 using UnityBehaviorTree.Runtime.Core.Node;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
+using Blackboard = UnityBehaviorTree.Runtime.Core.Blackboard;
 
 namespace UnityBehaviorTree.Editor.Window.Node
 {
@@ -45,12 +47,12 @@ namespace UnityBehaviorTree.Editor.Window.Node
         {
             if (!_childPort.connected)
             {
-                (NodeBehavior as PassThrough)!.Child = null;
+                (NodeBehavior as PassThrough<Blackboard>)!.Child = null;
                 cache = null;
                 return;
             }
             var child = _childPort.connections.First().input.node as BaseBehaviorTreeNode;
-            (NodeBehavior as PassThrough)!.Child = child?.ReplaceBehavior();
+            (NodeBehavior as PassThrough<Blackboard>)!.Child = child?.ReplaceBehavior() as BaseNodeBehavior<Blackboard>;
             stack.Push(child);
             cache = child;
         }

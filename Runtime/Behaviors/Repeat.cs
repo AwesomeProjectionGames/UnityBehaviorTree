@@ -13,7 +13,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
     /// <summary>
     /// Repeat a behaviour until a condition is met
     /// </summary>
-    public class Repeat : PassThrough
+    public class Repeat<T> : PassThrough<T> where T : Blackboard
     {
         [SerializeReference] public RepeatUntil Until;
 

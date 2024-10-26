@@ -3,7 +3,7 @@
     /// <summary>
     /// A simple leaf node that check a condition
     /// </summary>
-    public abstract class Conditional : BaseNodeBehavior
+    public abstract class Conditional<T> : BaseNodeBehavior<T> where T : Blackboard
     {
         protected override FrameResult OnUpdate()
         {

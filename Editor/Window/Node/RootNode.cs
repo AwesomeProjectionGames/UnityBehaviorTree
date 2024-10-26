@@ -3,6 +3,7 @@ using System.Linq;
 using UnityBehaviorTree.Runtime.Core;
 using UnityBehaviorTree.Runtime.Core.Node;
 using UnityEditor.Experimental.GraphView;
+using Blackboard = UnityBehaviorTree.Runtime.Core.Blackboard;
 
 namespace UnityBehaviorTree.Editor.Window.Node
 {
@@ -14,7 +15,7 @@ namespace UnityBehaviorTree.Editor.Window.Node
 
         public RootNode() 
         {
-            SetBehavior(typeof(Root));
+            SetBehavior(typeof(Root<Blackboard>));
             title = "Root";
             Child = CreateChildPort();
             outputContainer.Add(Child);
@@ -42,7 +43,7 @@ namespace UnityBehaviorTree.Editor.Window.Node
         protected override void OnCommit(Stack<BaseBehaviorTreeNode> stack)
         {
             var child = Child.connections.First().input.node as BaseBehaviorTreeNode;
-            var newRoot = new Root();
+            var newRoot = new Root<Blackboard>();
             newRoot.Child = child.ReplaceBehavior();
             //newRoot.UpdateEditor = ClearStyle;
             NodeBehavior = newRoot;
@@ -52,7 +53,7 @@ namespace UnityBehaviorTree.Editor.Window.Node
 
         public void PostCommit(BehaviorTreeRunner tree)
         {
-            tree.Root = (NodeBehavior as Root); 
+            tree.Root = (NodeBehavior as Root<Blackboard>); 
         }
 
         protected override void OnClearStyle()

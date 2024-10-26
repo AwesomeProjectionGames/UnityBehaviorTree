@@ -51,7 +51,7 @@ Here are the nodes that are already available by default :
 ### Making Custom Nodes
 Here's an example of how to implement an action node :
 ```csharp
-public class Wait : Action
+public class Wait : Action<Blackboard>
 {
     public float TimeToWait; //This is a public field, it will be exposed in the behavior tree editor
     private float _time;
@@ -74,7 +74,7 @@ public class Wait : Action
 ```
 Some abstract nodes require a method other than OnUpdate, such as conditional :
 ```csharp
-public class True : Conditional
+public class True : Conditional<Blackboard>
 {
     protected override bool CheckCondition()
     {
@@ -121,12 +121,11 @@ public class MyCustomBehaviorTreeRunner : BehaviorTreeRunner
 ```
 You can then access the custom blackboard in your nodes :
 ```csharp
-...
-protected override void OnRun()
+public class TargetPrinter : Action<MyCustomBlackboard>
 {
-    Transform target = (Blackboard as MyCustomBlackboard).Target;
-    Debug.Log($"The target is {target.name}");
+    protected override void OnRun()
+    {
+        Debug.Log($"The target is {Blackboard.Target.name}");
+    }
 }
-...
 ```
-*Note that the `(Blackboard as MyCustomBlackboard)` should be soon no longer necessary. You will instead be able to use the `Blackboard` property directly and inherit from `Action<T>` or `Conditional<T>` to have access to the custom blackboard.'*

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityBehaviorTree.Runtime.Core.Annotation;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace UnityBehaviorTree.Runtime.Core
 {
@@ -28,7 +29,7 @@ namespace UnityBehaviorTree.Runtime.Core
     /// Return the current state of the behaviour. Only running behaviours will continue to be updated.
     /// </summary>
     [Serializable]
-    public abstract class BaseNodeBehavior
+    public abstract class BaseNodeBehavior<T> where T : Blackboard
     {
 #if UNITY_EDITOR
         [HideInEditorWindow]
@@ -41,14 +42,16 @@ namespace UnityBehaviorTree.Runtime.Core
         /// <summary>
         /// The blackboard used to store and transmit data between behavior nodes.
         /// </summary>
-        protected Blackboard Blackboard;
+        protected T Blackboard;
 
         /// <summary>
         /// Call when the BehaviorTreeRunner is awaking.
         /// </summary>
         public virtual void Awake(Blackboard blackboard)
         {
-            Blackboard = blackboard;
+            Assert.IsNotNull(blackboard, "The blackboard is null. The blackboard should be set before calling Awake.");
+            Assert.IsTrue(blackboard is T, "The blackboard is not of the correct type. The blackboard should be of type " + typeof(T));
+            Blackboard = (T)blackboard;
             OnAwake();
         }
       

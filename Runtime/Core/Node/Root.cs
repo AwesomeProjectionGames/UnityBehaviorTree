@@ -3,7 +3,7 @@ namespace UnityBehaviorTree.Runtime.Core.Node
     /// <summary>
     /// The root node of the behavior tree
     /// </summary>
-    public class Root : PassThrough
+    public class Root<T> : PassThrough<T> where T : Blackboard
     {
         bool _hasFinished;
         protected override FrameResult OnUpdate()

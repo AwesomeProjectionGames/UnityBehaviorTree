@@ -6,6 +6,7 @@ using UnityBehaviorTree.Runtime.Core.Node;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Blackboard = UnityBehaviorTree.Runtime.Core.Blackboard;
 
 namespace UnityBehaviorTree.Editor.Window.Node
 {
@@ -71,7 +72,7 @@ namespace UnityBehaviorTree.Editor.Window.Node
             foreach (var port in ChildPorts)
             {
                 var child = port.connections.First().input.node as BaseBehaviorTreeNode;
-                (NodeBehavior as Composite)!.AddChild(child?.ReplaceBehavior());
+                (NodeBehavior as Composite<Blackboard>)!.AddChild(child?.ReplaceBehavior());
                 stack.Push(child);
                 _cache.Add(child);
             }

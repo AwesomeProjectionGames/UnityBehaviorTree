@@ -8,6 +8,7 @@ using UnityBehaviorTree.Runtime.Core.Annotation;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Blackboard = UnityBehaviorTree.Runtime.Core.Blackboard;
 
 namespace UnityBehaviorTree.Editor.Window.Node
 {
@@ -28,7 +29,7 @@ namespace UnityBehaviorTree.Editor.Window.Node
         /// <summary>
         /// The attached behavior of the node this represents.
         /// </summary>
-        protected BaseNodeBehavior NodeBehavior { set;  get; }
+        protected BaseNodeBehavior<Blackboard> NodeBehavior { set;  get; }
         private Type _dirtyNodeBehaviorType;
         
         public Port Parent { private set; get; }
@@ -50,7 +51,7 @@ namespace UnityBehaviorTree.Editor.Window.Node
             AddParent();
         }
 
-        public void Restore(BaseNodeBehavior behavior)
+        public void Restore(BaseNodeBehavior<Blackboard> behavior)
         {
             NodeBehavior = behavior;
             _resolvers.ForEach(e => e.Restore(NodeBehavior));
@@ -63,9 +64,9 @@ namespace UnityBehaviorTree.Editor.Window.Node
 
         }
 
-        public BaseNodeBehavior ReplaceBehavior()
+        public BaseNodeBehavior<Blackboard> ReplaceBehavior()
         {
-            NodeBehavior = Activator.CreateInstance(GetBehavior()) as BaseNodeBehavior;
+            NodeBehavior = Activator.CreateInstance(GetBehavior()) as BaseNodeBehavior<Blackboard>;
             return NodeBehavior;
         }
 
@@ -124,7 +125,7 @@ namespace UnityBehaviorTree.Editor.Window.Node
                 .ToList().ForEach((p) =>
                 {
                     var fieldResolver = _fieldResolverFactory.Create(p);
-                    var defaultValue = Activator.CreateInstance(nodeBehavior) as BaseNodeBehavior;
+                    var defaultValue = Activator.CreateInstance(nodeBehavior) as BaseNodeBehavior<Blackboard>;
                     fieldResolver.Restore(defaultValue);
                     _container.Add( fieldResolver.GetEditorField());
                     _resolvers.Add(fieldResolver);

@@ -9,12 +9,12 @@ namespace UnityBehaviorTree.Runtime.Behaviors
     /// An aborter node that will abort the child node if the condition is not met.
     /// Abort the child node run when the condition succeed.
     /// </summary>
-    public class Aborter : PassThrough
+    public class Aborter<T> : PassThrough<T> where T : Blackboard
     {
         [field: SerializeReference]
         [Tooltip("Abort the child node run when the condition succeed.")]
         [CanBeNull]
-        public BaseNodeBehavior Condition
+        public BaseNodeBehavior<Blackboard> Condition
         {
             get;
 #if UNITY_EDITOR

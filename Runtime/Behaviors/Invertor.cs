@@ -6,7 +6,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
     /// <summary>
     /// Invert the result of a child behaviour
     /// </summary>
-    public class Invertor : PassThrough
+    public class Invertor<T> : PassThrough<T> where T : Blackboard
     {
         protected override FrameResult OnUpdate()
         {

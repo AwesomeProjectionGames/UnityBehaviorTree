@@ -7,11 +7,11 @@ namespace UnityBehaviorTree.Runtime.Core.Node
     /// <summary>
     /// A base for all node that has a single child
     /// </summary>
-    public abstract class PassThrough : BaseNodeBehavior
+    public abstract class PassThrough<T> : BaseNodeBehavior<T> where T : Blackboard
     {
         [field: SerializeReference]
         [CanBeNull]
-        public BaseNodeBehavior Child
+        public BaseNodeBehavior<Blackboard> Child
         {
             get;
 #if UNITY_EDITOR

@@ -9,7 +9,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
     /// <summary>
     /// Execute a list of behaviours in order until one fails
     /// </summary>
-    public class Sequence : Composite
+    public class Sequence<T> : Composite<T> where T : Blackboard
     {
         public bool RandomizeOrder = false;
         

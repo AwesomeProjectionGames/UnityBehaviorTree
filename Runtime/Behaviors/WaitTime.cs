@@ -7,7 +7,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
     /// <summary>
     /// Wait for a given amount of time before returning success
     /// </summary>
-    public class WaitTime : Action
+    public class WaitTime<T> : Action<T> where T : Blackboard
     {
         public float TimeToWait;
         private float _time;
