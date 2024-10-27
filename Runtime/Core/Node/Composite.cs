@@ -12,9 +12,7 @@ namespace UnityBehaviorTree.Runtime.Core.Node
         public List<BaseNodeBehavior> Children
         {
             get;
-#if UNITY_EDITOR
-            set;
-#endif
+            protected set;
         } = new List<BaseNodeBehavior>();
 
         public override void Awake(Blackboard blackboard)
