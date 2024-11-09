@@ -47,7 +47,7 @@ namespace UnityBehaviorTree.Editor.Window.Member
             EditorField.value = (K)FieldInfo.GetValue(behavior);
         }
 
-        public void Commit(BaseNodeBehavior behavior)
+        public virtual void Commit(BaseNodeBehavior behavior)
         {
            FieldInfo.SetValue(behavior, EditorField.value);
         }

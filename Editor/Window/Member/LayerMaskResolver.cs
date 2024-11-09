@@ -20,5 +20,10 @@ namespace UnityBehaviorTree.Editor.Window.Member
         {
             EditorField.value = (LayerMask)FieldInfo.GetValue(behavior);
         }
+
+        public override void Commit(BaseNodeBehavior behavior)
+        {
+            FieldInfo.SetValue(behavior, (LayerMask)EditorField.value);
+        }
     }
 }
