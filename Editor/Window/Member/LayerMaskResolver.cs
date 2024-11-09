@@ -1,4 +1,5 @@
 using System.Reflection;
+using UnityBehaviorTree.Runtime.Core;
 using UnityEditor.UIElements;
 using UnityEngine;
 
@@ -14,5 +15,10 @@ namespace UnityBehaviorTree.Editor.Window.Member
             return new LayerMaskField(fieldInfo.Name);
         }
         public static bool IsAcceptable(FieldInfo info) => info.FieldType == typeof(LayerMask);
+
+        public override void Restore(BaseNodeBehavior behavior)
+        {
+            EditorField.value = (LayerMask)FieldInfo.GetValue(behavior);
+        }
     }
 }

@@ -21,35 +21,35 @@ namespace UnityBehaviorTree.Editor.Window.Member
 
     public abstract class FieldResolver<T, K> :IFieldResolver where T: BaseField<K>
     {
-        private readonly FieldInfo _fieldInfo;
-        private T _editorField;
+        internal readonly FieldInfo FieldInfo;
+        internal T EditorField;
 
         protected FieldResolver(FieldInfo fieldInfo)
         {
-            this._fieldInfo = fieldInfo;
+            this.FieldInfo = fieldInfo;
             SetEditorField();
         }
 
         private void SetEditorField()
         {
-            this._editorField = CreateEditorField(_fieldInfo);
+            this.EditorField = CreateEditorField(FieldInfo);
         }
 
         protected abstract T CreateEditorField(FieldInfo fieldInfo);
 
         public VisualElement GetEditorField()
         {
-            return this._editorField;
+            return this.EditorField;
         }
 
-        public void Restore(BaseNodeBehavior behavior)
+        public virtual void Restore(BaseNodeBehavior behavior)
         {
-            _editorField.value = (K)_fieldInfo.GetValue(behavior);
+            EditorField.value = (K)FieldInfo.GetValue(behavior);
         }
 
         public void Commit(BaseNodeBehavior behavior)
         {
-           _fieldInfo.SetValue(behavior, _editorField.value);
+           FieldInfo.SetValue(behavior, EditorField.value);
         }
     }
 }
