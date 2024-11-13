@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using UnityBehaviorTree.Runtime.Core;
+﻿using UnityBehaviorTree.Runtime.Core;
 using UnityBehaviorTree.Runtime.Core.Node;
-using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace UnityBehaviorTree.Runtime.Behaviors
@@ -11,29 +9,26 @@ namespace UnityBehaviorTree.Runtime.Behaviors
     /// </summary>
     public class Selector : Composite
     {
-        public bool RandomizeOrder = false;
-        
-        int _currentBehaviour = 0;
+        protected int CurrentBehaviour = 0;
         
         protected override void OnRun()
         {
-            _currentBehaviour = 0;
+            CurrentBehaviour = 0;
             Assert.IsTrue(Children.Count > 0);
-            if (RandomizeOrder) Children = Children.OrderBy(x => Random.value).ToList();
-            Children[_currentBehaviour].Run();
+            Children[CurrentBehaviour].Run();
         }
 
         protected override FrameResult OnUpdate()
         {
-            var result = Children[_currentBehaviour].Update();
+            var result = Children[CurrentBehaviour].Update();
             if (result == FrameResult.Failure)
             {
-                _currentBehaviour++;
-                if (_currentBehaviour >= Children.Count)
+                CurrentBehaviour++;
+                if (CurrentBehaviour >= Children.Count)
                 {
                     return FrameResult.Failure;
                 }
-                Children[_currentBehaviour].Run();
+                Children[CurrentBehaviour].Run();
                 return FrameResult.Running;
             }
             return result;
