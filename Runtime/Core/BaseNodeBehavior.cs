@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityBehaviorTree.Runtime.Core.Annotation;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Assertions.Must;
 
 namespace UnityBehaviorTree.Runtime.Core
 {
@@ -37,11 +39,15 @@ namespace UnityBehaviorTree.Runtime.Core
         [HideInEditorWindow]
         [NonSerialized]
         public Action<FrameResult> NotifyEditor;
+        
+        public static bool EnableLogging = false;
 #endif
         /// <summary>
         /// The blackboard used to store and transmit data between behavior nodes.
         /// </summary>
         protected Blackboard Blackboard;
+
+        private bool _didReturn = false;
 
         /// <summary>
         /// Call when the BehaviorTreeRunner is awaking.
@@ -50,6 +56,10 @@ namespace UnityBehaviorTree.Runtime.Core
         {
             Blackboard = blackboard;
             OnAwake();
+            
+#if UNITY_EDITOR
+            Log("Awake called");
+#endif
         }
       
         /// <summary>
@@ -57,7 +67,12 @@ namespace UnityBehaviorTree.Runtime.Core
         /// </summary>
         public virtual void Run()
         {
+            _didReturn = false;
             OnRun();
+            
+#if UNITY_EDITOR
+            Log("Run called");
+#endif
         }
         
         /// <summary>
@@ -66,6 +81,10 @@ namespace UnityBehaviorTree.Runtime.Core
         public virtual void Abort()
         {
             OnAbort();
+            
+#if UNITY_EDITOR
+            Log("Abort called");
+#endif
         }
         
         /// <summary>
@@ -74,12 +93,29 @@ namespace UnityBehaviorTree.Runtime.Core
         /// <returns>Return the current state of the leaf behavior node.</returns>
         public virtual FrameResult Update()
         {
+            Assert.IsTrue(!_didReturn, "The behavior node has already returned a value. You should not call Update again without calling Run first.");
             var status = OnUpdate();
+            if(status != FrameResult.Running)
+            {
+                _didReturn = true;
+            }
 #if UNITY_EDITOR
             NotifyEditor?.Invoke(status);
+            Log($"Update called with return status {status}");
 #endif
             return status;
         }
+        
+        
+#if UNITY_EDITOR
+        private void Log(string message)
+        {
+            if(EnableLogging)
+            {
+                Debug.Log($"[Unity Behavior Tree] {GetType().Name} on {Blackboard?.Runner?.gameObject.name} : {message}");
+            }
+        }
+#endif
         
         /// <summary>
         /// Called when the behaviorTreeRunner is awaking.
