@@ -54,12 +54,11 @@ namespace UnityBehaviorTree.Runtime.Core
         /// </summary>
         public virtual void Awake(Blackboard blackboard)
         {
+#if UNITY_EDITOR
+            Log("Calling Awake");
+#endif
             Blackboard = blackboard;
             OnAwake();
-            
-#if UNITY_EDITOR
-            Log("Awake called");
-#endif
         }
       
         /// <summary>
@@ -67,12 +66,11 @@ namespace UnityBehaviorTree.Runtime.Core
         /// </summary>
         public virtual void Run()
         {
+#if UNITY_EDITOR
+            Log("Calling Run");
+#endif
             _didReturn = false;
             OnRun();
-            
-#if UNITY_EDITOR
-            Log("Run called");
-#endif
         }
         
         /// <summary>
@@ -80,11 +78,11 @@ namespace UnityBehaviorTree.Runtime.Core
         /// </summary>
         public virtual void Abort()
         {
+#if UNITY_EDITOR
+            Log("Calling Abort");
+#endif
             OnAbort();
             
-#if UNITY_EDITOR
-            Log("Abort called");
-#endif
         }
         
         /// <summary>
@@ -93,6 +91,9 @@ namespace UnityBehaviorTree.Runtime.Core
         /// <returns>Return the current state of the leaf behavior node.</returns>
         public virtual FrameResult Update()
         {
+#if UNITY_EDITOR
+            Log("Calling Update");
+#endif
             Assert.IsTrue(!_didReturn, "The behavior node has already returned a value. You should not call Update again without calling Run first.");
             var status = OnUpdate();
             if(status != FrameResult.Running)
@@ -101,7 +102,6 @@ namespace UnityBehaviorTree.Runtime.Core
             }
 #if UNITY_EDITOR
             NotifyEditor?.Invoke(status);
-            Log($"Update called with return status {status}");
 #endif
             return status;
         }
