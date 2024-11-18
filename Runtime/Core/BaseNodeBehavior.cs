@@ -94,7 +94,7 @@ namespace UnityBehaviorTree.Runtime.Core
 #if UNITY_EDITOR
             Log("Calling Update");
 #endif
-            Assert.IsTrue(!_didReturn, "The behavior node has already returned a value. You should not call Update again without calling Run first.");
+            Assert.IsTrue(!_didReturn, $"The behavior node ({GetType().Name}) has already returned a value. You should not call Update again without calling Run first.");
             var status = OnUpdate();
             if(status != FrameResult.Running)
             {
