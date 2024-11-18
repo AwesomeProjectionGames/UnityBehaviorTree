@@ -47,8 +47,6 @@ namespace UnityBehaviorTree.Runtime.Core
         /// </summary>
         protected Blackboard Blackboard;
 
-        private bool _didReturn = false;
-
         /// <summary>
         /// Call when the BehaviorTreeRunner is awaking.
         /// </summary>
@@ -69,7 +67,6 @@ namespace UnityBehaviorTree.Runtime.Core
 #if UNITY_EDITOR
             Log("Calling Run");
 #endif
-            _didReturn = false;
             OnRun();
         }
         
@@ -94,12 +91,7 @@ namespace UnityBehaviorTree.Runtime.Core
 #if UNITY_EDITOR
             Log("Calling Update");
 #endif
-            Assert.IsTrue(!_didReturn, $"The behavior node ({GetType().Name}) has already returned a value. You should not call Update again without calling Run first.");
             var status = OnUpdate();
-            if(status != FrameResult.Running)
-            {
-                _didReturn = true;
-            }
 #if UNITY_EDITOR
             NotifyEditor?.Invoke(status);
 #endif

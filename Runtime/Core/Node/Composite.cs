@@ -6,7 +6,7 @@ namespace UnityBehaviorTree.Runtime.Core.Node
     /// <summary>
     /// A composite node that can have multiple children
     /// </summary>
-    public abstract class Composite : BaseNodeBehavior
+    public abstract class Composite : BaseNodeBehaviorWithImposedRun
     {
         [field: SerializeReference]
         public List<BaseNodeBehavior> Children
