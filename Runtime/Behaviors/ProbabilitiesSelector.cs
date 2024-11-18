@@ -31,7 +31,6 @@ namespace UnityBehaviorTree.Runtime.Behaviors
         {
             CurrentBehaviour = 0;
             Assert.IsTrue(Children.Count > 0);
-            Children[CurrentBehaviour].Run();
             //Change the order of the children based on the probabilities
             if (ResetProbabilitiesOnRun)  ResetProbabilities();
             // Reorder the children list based on the probabilities
@@ -40,6 +39,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
                 .OrderBy(x => Random.Range(0f, 1f) * (1 - x.probability)) // Shuffle based on weighted probability
                 .Select(x => x.child) // Extract the children back
                 .ToList();
+            Children[CurrentBehaviour].Run();
         }
         
         /// <summary>
