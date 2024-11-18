@@ -27,7 +27,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             ResetProbabilities();
         }
 
-        public override void Run()
+        protected override void OnRun()
         {
             CurrentBehaviour = 0;
             Assert.IsTrue(Children.Count > 0);
