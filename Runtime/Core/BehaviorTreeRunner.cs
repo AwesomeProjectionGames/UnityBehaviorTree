@@ -72,7 +72,7 @@ namespace UnityBehaviorTree.Runtime.Core
         /// <summary>
         /// Call this method to update the behavior tree manually.
         /// </summary>
-        public void ManualUpdate()
+        public virtual void ManualUpdate()
         {
             if (!DiviseUpdateForRunners || IsDiviseUpdateTurn(this)) root.Update();
         }
