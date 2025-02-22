@@ -84,7 +84,6 @@ namespace UnityBehaviorTree.Runtime.Core
         public virtual void ManualUpdate()
         {
             if (!DiviseUpdateForRunners || IsDiviseUpdateTurn(this)) {
-                Log("Updating root node", GetType().Name);
                 root.Update();
             }
         }
