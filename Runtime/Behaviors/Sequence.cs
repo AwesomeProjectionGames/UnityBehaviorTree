@@ -20,7 +20,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             _currentBehaviour = 0;
             Assert.IsTrue(Children.Count > 0);
             if (RandomizeOrder) Children = Children.OrderBy(x => Random.value).ToList();
-            Log($"Calling first child (${ Children[_currentBehaviour].GetType().Name })");
+            Log($"Calling first child ({ Children[_currentBehaviour].GetType().Name })");
             Children[_currentBehaviour].Run();
         }
 
@@ -35,7 +35,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
                     Log("All children succeeded");
                     return FrameResult.Success;
                 }
-                Log($"Child succeeded. Calling next child (${ Children[_currentBehaviour].GetType().Name })");
+                Log($"Child succeeded. Calling next child ({ Children[_currentBehaviour].GetType().Name })");
                 Children[_currentBehaviour].Run();
                 return FrameResult.Running;
             }

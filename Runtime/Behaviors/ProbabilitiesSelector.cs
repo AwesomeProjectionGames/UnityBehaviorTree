@@ -39,7 +39,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
                 .OrderBy(x => Random.Range(0f, 1f) * (1 - x.probability)) // Shuffle based on weighted probability
                 .Select(x => x.child) // Extract the children back
                 .ToList();
-            Log($"Reordered children. Calling first child (${ Children[CurrentBehaviour].GetType().Name }");
+            Log($"Reordered children. Calling first child ({ Children[CurrentBehaviour].GetType().Name }");
             Children[CurrentBehaviour].Run();
         }
         
@@ -72,7 +72,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
                     Log("All children failed");
                     return FrameResult.Failure;
                 }
-                Log($"Child failed. Calling next child (${ Children[CurrentBehaviour].GetType().Name })");
+                Log($"Child failed. Calling next child ({ Children[CurrentBehaviour].GetType().Name })");
                 Children[CurrentBehaviour].Run();
                 return FrameResult.Running;
             }

@@ -15,7 +15,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
         {
             CurrentBehaviour = 0;
             Assert.IsTrue(Children.Count > 0);
-            Log($"Calling first child (${ Children[CurrentBehaviour].GetType().Name })");
+            Log($"Calling first child ({ Children[CurrentBehaviour].GetType().Name })");
             Children[CurrentBehaviour].Run();
         }
 
@@ -30,7 +30,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
                     Log("All children failed");
                     return FrameResult.Failure;
                 }
-                Log($"Child failed. Calling next child (${ Children[CurrentBehaviour].GetType().Name })");
+                Log($"Child failed. Calling next child ({ Children[CurrentBehaviour].GetType().Name })");
                 Children[CurrentBehaviour].Run();
                 return FrameResult.Running;
             }

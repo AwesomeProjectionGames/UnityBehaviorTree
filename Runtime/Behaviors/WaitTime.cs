@@ -22,7 +22,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             _time += Time.deltaTime;
             if (_time >= TimeToWait)
             {
-                Log($"Waited for ${_time} seconds");
+                Log($"Waited for {_time} seconds");
                 return FrameResult.Success;
             }
             return FrameResult.Running;
