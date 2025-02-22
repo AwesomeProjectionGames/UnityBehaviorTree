@@ -102,7 +102,7 @@ namespace UnityBehaviorTree.Runtime.Core
 
         protected virtual Blackboard CreateBlackboard()
         {
-            if (EnableDebugLogging) Debug.Log($"[BT-{gameObject.name}] Creating new blackboard");
+            Log("Creating blackboard", GetType().Name);
             return new Blackboard(this);
         }
     }
