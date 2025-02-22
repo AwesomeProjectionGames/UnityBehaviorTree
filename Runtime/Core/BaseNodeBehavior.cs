@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using UnityBehaviorTree.Runtime.Core.Annotation;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -38,20 +39,20 @@ namespace UnityBehaviorTree.Runtime.Core
         
         [HideInEditorWindow]
         [NonSerialized]
-        public Action<FrameResult> NotifyEditor;
+        public Action<FrameResult>? NotifyEditor;
 #endif
         /// <summary>
         /// The blackboard used to store and transmit data between behavior nodes.
         /// </summary>
-        protected Blackboard Blackboard;
+        protected Blackboard? Blackboard;
 
         /// <summary>
         /// Call when the BehaviorTreeRunner is awaking.
         /// </summary>
         public virtual void Awake(Blackboard blackboard)
         {
-            Log("Calling Awake");
             Blackboard = blackboard;
+            Log("Calling Awake");
             OnAwake();
         }
       
@@ -93,7 +94,7 @@ namespace UnityBehaviorTree.Runtime.Core
         /// <param name="message">Message to log</param>
         protected void Log(string message)
         {
-            Blackboard.Runner.Log(message, GetType().Name);
+            Blackboard?.Runner?.Log(message, GetType().Name);
         }
         
         /// <summary>
