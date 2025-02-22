@@ -39,6 +39,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             bool isConditionMet = (Condition?.Update() ?? FrameResult.Failure) == FrameResult.Success;
             if (isConditionMet)
             {
+                Log("Aborting child node");
                 Child?.Abort();
                 return FrameResult.Failure;
             }

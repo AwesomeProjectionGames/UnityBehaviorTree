@@ -22,14 +22,17 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             var result = Child.Update();
             if (Until == RepeatUntil.Success && result == FrameResult.Success)
             {
+                Log("Final success (repeat until success)");
                 return FrameResult.Success;
             }
             if (Until == RepeatUntil.Failure && result == FrameResult.Failure)
             {
+                Log("Final failure (repeat until failure)");
                 return FrameResult.Failure;
             }
             if (result != FrameResult.Running)
             {
+                Log("Child finished, restarting");
                 Child.Run();
             }
             return FrameResult.Running;

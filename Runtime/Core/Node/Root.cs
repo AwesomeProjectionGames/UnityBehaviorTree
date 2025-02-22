@@ -11,6 +11,7 @@ namespace UnityBehaviorTree.Runtime.Core.Node
             if (_hasFinished) return FrameResult.Success;
             FrameResult result = Child?.Update() ?? FrameResult.Failure;
             if (result == FrameResult.Running) return FrameResult.Running;
+            Log("Root finished");
             _hasFinished = true;
             return result;
         }

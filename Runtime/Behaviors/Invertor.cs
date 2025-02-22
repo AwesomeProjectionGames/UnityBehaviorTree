@@ -13,10 +13,12 @@ namespace UnityBehaviorTree.Runtime.Behaviors
             var result = Child.Update();
             if (result == FrameResult.Success)
             {
+                Log("Success inverted to Failure");
                 return FrameResult.Failure;
             }
             if (result == FrameResult.Failure)
             {
+                Log("Failure inverted to Success");
                 return FrameResult.Success;
             }
             return result;

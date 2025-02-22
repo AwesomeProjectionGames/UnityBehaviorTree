@@ -39,8 +39,6 @@ namespace UnityBehaviorTree.Runtime.Core
         [HideInEditorWindow]
         [NonSerialized]
         public Action<FrameResult> NotifyEditor;
-        
-        public static bool EnableLogging = false;
 #endif
         /// <summary>
         /// The blackboard used to store and transmit data between behavior nodes.
@@ -52,9 +50,7 @@ namespace UnityBehaviorTree.Runtime.Core
         /// </summary>
         public virtual void Awake(Blackboard blackboard)
         {
-#if UNITY_EDITOR
             Log("Calling Awake");
-#endif
             Blackboard = blackboard;
             OnAwake();
         }
@@ -64,9 +60,7 @@ namespace UnityBehaviorTree.Runtime.Core
         /// </summary>
         public virtual void Run()
         {
-#if UNITY_EDITOR
             Log("Calling Run");
-#endif
             OnRun();
         }
         
@@ -75,11 +69,8 @@ namespace UnityBehaviorTree.Runtime.Core
         /// </summary>
         public virtual void Abort()
         {
-#if UNITY_EDITOR
             Log("Calling Abort");
-#endif
             OnAbort();
-            
         }
         
         /// <summary>
@@ -88,9 +79,7 @@ namespace UnityBehaviorTree.Runtime.Core
         /// <returns>Return the current state of the leaf behavior node.</returns>
         public virtual FrameResult Update()
         {
-#if UNITY_EDITOR
             Log("Calling Update");
-#endif
             var status = OnUpdate();
 #if UNITY_EDITOR
             NotifyEditor?.Invoke(status);
@@ -98,16 +87,14 @@ namespace UnityBehaviorTree.Runtime.Core
             return status;
         }
         
-        
-#if UNITY_EDITOR
-        private void Log(string message)
+        /// <summary>
+        /// Log the message to Runner
+        /// </summary>
+        /// <param name="message">Message to log</param>
+        protected void Log(string message)
         {
-            if(EnableLogging)
-            {
-                Debug.Log($"[Unity Behavior Tree] {GetType().Name} on {Blackboard?.Runner?.gameObject.name} : {message}");
-            }
+            Blackboard.Runner.Log(message, GetType().Name);
         }
-#endif
         
         /// <summary>
         /// Called when the behaviorTreeRunner is awaking.
