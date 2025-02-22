@@ -80,7 +80,6 @@ namespace UnityBehaviorTree.Runtime.Core
         /// <returns>Return the current state of the leaf behavior node.</returns>
         public virtual FrameResult Update()
         {
-            Log("Calling Update");
             var status = OnUpdate();
 #if UNITY_EDITOR
             NotifyEditor?.Invoke(status);
