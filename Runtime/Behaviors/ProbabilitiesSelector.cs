@@ -30,17 +30,17 @@ namespace UnityBehaviorTree.Runtime.Behaviors
         protected override void OnRun()
         {
             CurrentBehaviour = 0;
-            Assert.IsTrue(Children.Count > 0);
+            Assert.IsTrue(children.Count > 0);
             //Change the order of the children based on the probabilities
             if (ResetProbabilitiesOnRun)  ResetProbabilities();
             // Reorder the children list based on the probabilities
-            Children = Children
+            children = children
                 .Select((child, index) => new { child, probability = Probabilities[index] }) // Pair child with its probability
                 .OrderBy(x => Random.Range(0f, 1f) * (1 - x.probability)) // Shuffle based on weighted probability
                 .Select(x => x.child) // Extract the children back
                 .ToList();
-            Log($"Reordered children. Calling first child ({ Children[CurrentBehaviour].GetType().Name }");
-            Children[CurrentBehaviour].Run();
+            Log($"Reordered children. Calling first child ({ children[CurrentBehaviour].GetType().Name }");
+            children[CurrentBehaviour].Run();
         }
         
         /// <summary>
@@ -50,7 +50,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
         {
             Log("Resetting probabilities");
             Probabilities.Clear();
-            for (int i = 0; i < Children.Count; i++)
+            for (int i = 0; i < children.Count; i++)
             {
                 Probabilities.Add(Random.value);
             }
@@ -63,17 +63,17 @@ namespace UnityBehaviorTree.Runtime.Behaviors
         
         protected override FrameResult OnUpdate()
         {
-            var result = Children[CurrentBehaviour].Update();
+            var result = children[CurrentBehaviour].Update();
             if (result == FrameResult.Failure)
             {
                 CurrentBehaviour++;
-                if (CurrentBehaviour >= Children.Count)
+                if (CurrentBehaviour >= children.Count)
                 {
                     Log("All children failed");
                     return FrameResult.Failure;
                 }
-                Log($"Child failed. Calling next child ({ Children[CurrentBehaviour].GetType().Name })");
-                Children[CurrentBehaviour].Run();
+                Log($"Child failed. Calling next child ({ children[CurrentBehaviour].GetType().Name })");
+                children[CurrentBehaviour].Run();
                 return FrameResult.Running;
             }
             return result;

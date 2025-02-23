@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UnityBehaviorTree.Runtime.Core.Node
 {
@@ -8,12 +9,11 @@ namespace UnityBehaviorTree.Runtime.Core.Node
     /// </summary>
     public abstract class Composite : BaseNodeBehaviorWithImposedRun
     {
-        [field: SerializeReference]
-        public List<BaseNodeBehavior> Children
-        {
-            get;
-            protected set;
-        } = new List<BaseNodeBehavior>();
+        [SerializeReference]
+        [FormerlySerializedAs("<Children>k__BackingField")]
+        protected List<BaseNodeBehavior> children = new List<BaseNodeBehavior>();
+        
+        public List<BaseNodeBehavior> Children => children;
 
         public override void Awake(Blackboard blackboard)
         {

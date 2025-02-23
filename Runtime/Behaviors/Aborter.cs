@@ -2,6 +2,7 @@
 using UnityBehaviorTree.Runtime.Core;
 using UnityBehaviorTree.Runtime.Core.Node;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UnityBehaviorTree.Runtime.Behaviors
 {
@@ -11,14 +12,17 @@ namespace UnityBehaviorTree.Runtime.Behaviors
     /// </summary>
     public class Aborter : PassThrough
     {
-        [field: SerializeReference]
+        [SerializeReference]
+        [FormerlySerializedAs("<Condition>k__BackingField")]
+        private BaseNodeBehavior condition;
+
         [Tooltip("Abort the child node run when the condition succeed.")]
         [CanBeNull]
         public BaseNodeBehavior Condition
         {
-            get;
+            get => condition;
 #if UNITY_EDITOR
-            set;
+            set => condition = value;
 #endif
         }
         

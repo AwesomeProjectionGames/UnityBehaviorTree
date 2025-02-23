@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UnityBehaviorTree.Runtime.Core.Node
 {
@@ -9,15 +10,18 @@ namespace UnityBehaviorTree.Runtime.Core.Node
     /// </summary>
     public abstract class PassThrough : BaseNodeBehaviorWithImposedRun
     {
-        [field: SerializeReference]
-        [CanBeNull]
+        [SerializeReference]
+        [FormerlySerializedAs("<Child>k__BackingField")]
+        private BaseNodeBehavior child;
+
         public BaseNodeBehavior Child
         {
-            get;
+            get => child;
 #if UNITY_EDITOR
-            set;
+            set => child = value;
 #endif
         }
+
 
         public override void Awake(Blackboard blackboard)
         {

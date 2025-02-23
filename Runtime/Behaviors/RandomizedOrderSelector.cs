@@ -10,7 +10,7 @@ namespace UnityBehaviorTree.Runtime.Behaviors
     {
         protected override void OnRun()
         {
-            Children = Children.OrderBy(x => Random.value).ToList();
+            children = children.OrderBy(x => Random.value).ToList();
             base.OnRun();
         }
     }

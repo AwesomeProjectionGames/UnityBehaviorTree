@@ -18,25 +18,25 @@ namespace UnityBehaviorTree.Runtime.Behaviors
         protected override void OnRun()
         {
             _currentBehaviour = 0;
-            Assert.IsTrue(Children.Count > 0);
-            if (RandomizeOrder) Children = Children.OrderBy(x => Random.value).ToList();
-            Log($"Calling first child ({ Children[_currentBehaviour].GetType().Name })");
-            Children[_currentBehaviour].Run();
+            Assert.IsTrue(children.Count > 0);
+            if (RandomizeOrder) children = children.OrderBy(x => Random.value).ToList();
+            Log($"Calling first child ({ children[_currentBehaviour].GetType().Name })");
+            children[_currentBehaviour].Run();
         }
 
         protected override FrameResult OnUpdate()
         {
-            var result = Children[_currentBehaviour].Update();
+            var result = children[_currentBehaviour].Update();
             if (result == FrameResult.Success)
             {
                 _currentBehaviour++;
-                if (_currentBehaviour >= Children.Count)
+                if (_currentBehaviour >= children.Count)
                 {
                     Log("All children succeeded");
                     return FrameResult.Success;
                 }
-                Log($"Child succeeded. Calling next child ({ Children[_currentBehaviour].GetType().Name })");
-                Children[_currentBehaviour].Run();
+                Log($"Child succeeded. Calling next child ({ children[_currentBehaviour].GetType().Name })");
+                children[_currentBehaviour].Run();
                 return FrameResult.Running;
             }
             return result;
